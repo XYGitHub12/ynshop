@@ -12,7 +12,7 @@
 
     <artifactId>demo-manager</artifactId>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
 
 </project>
