@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.manager.dao.TbItemCustomMapper" >
+
+  <sql id="Base_Column_List" >
+    id, title, sell_point as sellPoint, price, num, barcode, image, cid, status, created, updated
+  </sql>
+
+  <select id="getCount" resultType="_long">
+    SELECT
+    COUNT(1)
+    FROM
+    tb_item
+  </select>
+
+  <select id="listItemsByPage" parameterType="com.zc.manager.dto.PageParam" resultType="com.zc.manager.pojo.po.TbItem">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    tb_item
+    limit #{offset},#{limit}
+  </select>
+
+</mapper>
