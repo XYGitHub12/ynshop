@@ -3,21 +3,22 @@
 <mapper namespace="com.zc.manager.dao.TbItemCustomMapper" >
 
   <sql id="Base_Column_List" >
-    id, title, sell_point as sellPoint, price, num, barcode, image, cid, status, created, updated
+    i.id, i.title, i.sell_point as sellPoint, i.price, i.num, i.barcode, i.image, i.cid, i.status, i.created, i.updated,c.name as catName
   </sql>
 
   <select id="getCount" resultType="_long">
     SELECT
     COUNT(1)
     FROM
-    tb_item
+    tb_item AS i
   </select>
 
-  <select id="listItemsByPage" parameterType="com.zc.manager.dto.PageParam" resultType="com.zc.manager.pojo.po.TbItem">
+  <select id="listItemsByPage" parameterType="com.zc.manager.pojo.dto.PageParam" resultType="com.zc.manager.pojo.vo.TbItemCustom">
     SELECT
     <include refid="Base_Column_List" />
     FROM
-    tb_item
+    tb_item i left JOIN tb_item_cat c
+    ON i.cid = c.id
     limit #{offset},#{limit}
   </select>
 

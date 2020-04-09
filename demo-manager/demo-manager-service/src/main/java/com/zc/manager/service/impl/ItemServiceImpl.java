@@ -1,9 +1,10 @@
 package com.zc.manager.service.impl;
 
 import com.zc.manager.dao.TbItemCustomMapper;
-import com.zc.manager.dto.ItemResult;
-import com.zc.manager.dto.PageParam;
+import com.zc.manager.pojo.dto.ItemResult;
+import com.zc.manager.pojo.dto.PageParam;
 import com.zc.manager.pojo.po.TbItem;
+import com.zc.manager.pojo.vo.TbItemCustom;
 import com.zc.manager.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,9 @@ public class ItemServiceImpl implements ItemService{
     private TbItemCustomMapper tbItemCustomDao;
 
     @Override
-    public ItemResult<TbItem> listItems(PageParam pageParam) {
+    public ItemResult<TbItemCustom> listItems(PageParam pageParam) {
 
-        ItemResult<TbItem> result = new ItemResult<>();
+        ItemResult<TbItemCustom> result = new ItemResult<>();
         result.setCode(0);
         result.setMsg("select success");
         try {
@@ -30,7 +31,7 @@ public class ItemServiceImpl implements ItemService{
             long count = tbItemCustomDao.getCount();
             result.setCount(count);
             //data
-            List<TbItem> data = tbItemCustomDao.listItemsByPage(pageParam);
+            List<TbItemCustom> data = tbItemCustomDao.listItemsByPage(pageParam);
             result.setData(data);
         }catch (Exception e){
             result.setCount(-1);

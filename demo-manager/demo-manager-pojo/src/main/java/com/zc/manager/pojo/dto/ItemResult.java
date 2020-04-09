@@ -1,4 +1,4 @@
-package com.zc.manager.dto;
+package com.zc.manager.pojo.dto;
 
 import java.util.List;
 
