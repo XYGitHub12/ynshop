@@ -12,21 +12,32 @@
     i.created, i.updated,c.name as catName
   </sql>
 
-  <select id="getCount" resultType="_long">
+  <sql id="When_List" >
+    <where>
+      i.status != 3
+      <if test="itemQuery !=null and itemQuery.title !=null and itemQuery.title !=''">
+        AND i.title LIKE '%${itemQuery.title}%'
+      </if>
+    </where>
+  </sql>
+
+  <select id="getCount" parameterType="com.zc.manager.pojo.dto.ItemQuery" resultType="_long">
     SELECT
     COUNT(1)
     FROM
     tb_item AS i
+    <include refid="When_List" />
   </select>
 
-  <select id="listItemsByPage" parameterType="com.zc.manager.pojo.dto.PageParam" resultType="com.zc.manager.pojo.vo.TbItemCustom">
+  <select id="listItemsByPage" resultType="com.zc.manager.pojo.vo.TbItemCustom">
     SELECT
     <include refid="Base_Column_List" />
     FROM
     tb_item i left JOIN tb_item_cat c
     ON i.cid = c.id
+    <include refid="When_List" />
     ORDER BY id
-    limit #{offset},#{limit}
+    limit #{pageParam.offset},#{pageParam.limit}
   </select>
 
 </mapper>
